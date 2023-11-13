@@ -1,2 +1,14 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+    import type { PageServerData } from "./$types";
+    import { Table } from "$lib/components";
+
+    export let data: PageServerData;
+</script>
+
+<h1>One Twenty Seven</h1>
+
+<h2>Employees</h2>
+<Table
+    headers={["ID", "Name", "Position", "Salary", "Reports To"]}
+    rows={data.employees}
+/>
