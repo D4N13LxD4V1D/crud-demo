@@ -1,6 +1,10 @@
 <script lang="ts">
+    import Row from "./Row.svelte";
+
+    export let table: string;
     export let headers: string[];
-    export let rows: any;
+    export let keys: string[];
+    export let rows: any[];
 </script>
 
 <div class="table">
@@ -11,32 +15,13 @@
         <span class="td">Actions</span>
     </div>
     {#each rows as row}
-        <div class="tr">
-            {#each row as cell}
-                <span class="td">{cell}</span>
-            {/each}
-            <span class="td">
-                <button
-                    on:click={() => {
-                        console.log(row);
-                    }}
-                >
-                    Edit
-                </button>
-                <button
-                    on:click={() => {
-                        console.log(row);
-                    }}
-                >
-                    Delete
-                </button></span
-            >
-        </div>
+        <Row {table} {keys} {row} />
     {/each}
-    <form class="tr" on:submit|preventDefault={() => {}}>
-        {#each headers as header}
+    <form class="tr" method="POST" action="?/insert">
+        <input type="hidden" name="table" value={table} />
+        {#each keys as key}
             <span class="td">
-                <input type="text" placeholder={header} />
+                <input type="text" name={key} />
             </span>
         {/each}
         <span class="td">

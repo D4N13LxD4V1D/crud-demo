@@ -3,12 +3,18 @@
     import { Table } from "$lib/components";
 
     export let data: PageServerData;
+
+    let currentTable = data.tables[0];
 </script>
 
 <h1>One Twenty Seven</h1>
 
-<h2>Employees</h2>
+<select bind:value={currentTable}>
+    {#each data.tables as value}<option {value}>{value}</option>{/each}
+</select>
 <Table
-    headers={["ID", "Name", "Position", "Salary", "Reports To"]}
-    rows={data.employees}
+    table={currentTable}
+    headers={data.headers[currentTable]}
+    keys={data.keys[currentTable]}
+    rows={data.rows[currentTable]}
 />
